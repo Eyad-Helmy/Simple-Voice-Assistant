@@ -56,37 +56,37 @@ def extract_repeat_text(user_text: str) -> str:
 INTENTS = [
     {
         "name": "greet",
-        "keywords": ["hello", "hi", "hey", "good morning", "good afternoon"],
+        "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "greetings", "what's up", "how are you", "how's it going", "sup", "yo"],
         "response": "Hello! How can I help you today?"
     },
     {
         "name": "time",
-        "keywords": ["time", "what time", "current time"],
+        "keywords": ["time", "what time", "current time", "what's the time", "tell me the time", "what time is it", "current hour"],
         "response": get_time
     },
     {
         "name": "date",
-        "keywords": ["date", "what day", "today's date", "what's today"],
+        "keywords": ["date", "what day", "today's date", "what's today", "today", "what date is it", "current date", "what day is today"],
         "response": get_date
     },
     {
         "name": "joke",
-        "keywords": ["joke", "funny", "make me laugh", "tell me a joke"],
+        "keywords": ["joke", "funny", "make me laugh", "tell me a joke", "tell a joke", "make me smile", "something funny", "crack a joke"],
         "response": tell_joke
     },
     {
         "name": "name",
-        "keywords": ["your name", "who are you", "what are you called"],
+        "keywords": ["your name", "who are you", "what are you called", "what's your name", "introduce yourself", "what do you call yourself"],
         "response": "I'm Jarvis, your personal voice assistant."
     },
     {
         "name": "weather",
-        "keywords": ["weather", "temperature", "forecast", "raining"],
+        "keywords": ["weather", "temperature", "forecast", "raining", "is it raining", "how's the weather", "what's the temperature", "what's the forecast"],
         "response": "I don't have live weather access yet, but you can ask me to add it!"
     },
     {
         "name": "farewell",
-        "keywords": ["bye", "goodbye", "see you", "exit", "quit", "stop"],
+        "keywords": ["bye", "goodbye", "see you", "exit", "quit", "stop", "see you later", "later", "cya", "talk to you later", "have a good day"],
         "response": say_goodbye
     },
     {
