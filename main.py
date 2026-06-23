@@ -10,3 +10,8 @@
     # 3- if it's not (means user actually said something), pass the processed input input to the brain to translate that into a response
     # 4- send the response to the sst to speak it out
     # 5- check if the user's input contained an exit word to terminate loop (done before reponse so it doesn't terminate abruptly)
+
+from tts import init_tts, speak
+
+engine = init_tts()
+speak(engine, "Hello this is an application")
