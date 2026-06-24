@@ -12,19 +12,10 @@
     # 5- check if the user's input contained an exit word to terminate loop (done before reponse so it doesn't terminate abruptly)
 
 from tts import init_tts, speak
-from brain.intent import INTENTS
-import random
+from brain.assistant import get_response
 
-rand_index = random.randint(0, len(INTENTS) - 1)
-intent = INTENTS[rand_index]
-# intent = INTENTS[-1]  # to try the repeat intent 
-response = intent["response"]
-
-# Handle both static strings and callable functions
-if callable(response):
-    response_text = response("repeat after me, i am a robot")
-else:
-    response_text = response
+user_text = "hello, who are you?"
+response = get_response(user_text)  # maps the input to intent then handles the intent's response whether a function or a string
 
 engine = init_tts()
-speak(engine, response_text)
+speak(engine, response)
