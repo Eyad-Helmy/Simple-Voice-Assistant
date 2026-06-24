@@ -82,7 +82,7 @@ INTENTS = [
     {
         "name": "weather",
         "keywords": ["weather", "temperature", "forecast", "raining", "is it raining", "how's the weather", "what's the temperature", "what's the forecast"],
-        "response": "I don't have live weather access yet, but you can ask me to add it!"
+        "response": "I don't have live weather access yet. Will be added soon."
     },
     {
         "name": "farewell",
