@@ -3,6 +3,8 @@
 
 import datetime
 import random
+import requests
+from urllib.parse import quote_plus
  
  
 # ── Response functions ──────────────────────────────────────────
@@ -28,7 +30,37 @@ def tell_joke(_user_text: str) -> str:
     ]
     return random.choice(jokes)
  
- 
+
+def extract_weather_location(user_text: str) -> str | None:
+    lower_text = user_text.lower()
+    for keyword in [" in ", " at ", " for "]:
+        if keyword in lower_text:
+            location = lower_text.split(keyword, 1)[1].strip()
+            if location:
+                for stop in ["?", ".", "!", ","]:
+                    location = location.split(stop, 1)[0].strip()
+                return location
+    return None
+
+
+def get_weather(user_text: str) -> str:
+    location = extract_weather_location(user_text) or ""
+    query = quote_plus(location) if location else ""
+    url = f"https://wttr.in/{query}?format=j1"
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        current = data["current_condition"][0]
+        area = data.get("nearest_area", [{}])[0].get("areaName", [{}])[0].get("value", "your location")
+        temp_c = current.get("temp_C", "unknown")
+        description = current.get("weatherDesc", [{"value": "unknown"}])[0].get("value", "unknown")
+        feels_like = current.get("FeelsLikeC", "unknown")
+        return f"The weather in {area} is {description} with a temperature of {temp_c}°C and it feels like {feels_like}°C."
+    except Exception:
+        return "I couldn't fetch the weather right now. Please try again in a moment."
+
+
 def say_goodbye(_user_text: str) -> str:
     return "Goodbye! Have a great day."
 
@@ -82,7 +114,7 @@ INTENTS = [
     {
         "name": "weather",
         "keywords": ["weather", "temperature", "forecast", "raining", "is it raining", "how's the weather", "what's the temperature", "what's the forecast"],
-        "response": "I don't have live weather access yet, but you can ask me to add it!"
+        "response": get_weather
     },
     {
         "name": "farewell",
