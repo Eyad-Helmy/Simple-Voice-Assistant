@@ -5,7 +5,6 @@ from brain.intent import INTENTS, FALLBACK_RESPONSE
 import re
 
 def match_intent(user_text: str) -> dict | None:
-    user_text = user_text.lower()
     
     best_score = 0
     best_intent = None

@@ -11,7 +11,10 @@ def init_tts(rate: int = 150, volume: float = 1.0):
     time.sleep(0.5)
     return engine
 
-def speak(engine, text: str, ) -> None:
+def speak(engine, text: str) -> None:
     print(f"[ASSISTANT] {text}")
+    engine.stop()
     engine.say(text)
     engine.runAndWait()
+    engine.stop()
+    time.sleep(0.1)

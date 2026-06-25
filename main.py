@@ -12,10 +12,35 @@
     # 5- check if the user's input contained an exit word to terminate loop (done before reponse so it doesn't terminate abruptly)
 
 from tts import init_tts, speak
+from stt import init_stt, calibrate, listen
 from brain.assistant import get_response
+from brain.intent import EXIT_KEYWORDS
 
-user_text = "hello, who are you?"
-response = get_response(user_text)  # maps the input to intent then handles the intent's response whether a function or a string
+def main():
 
-engine = init_tts()
-speak(engine, response)
+    print("=== Voice Assistant Starting ===")
+    
+    recognizer = init_stt()
+    engine = init_tts()
+
+    calibrate(recognizer)
+    speak(engine, "Hello! I'm Jarvis. How can I help you?")
+
+    while True:
+
+        user_text = listen(recognizer)
+        if user_text is None:
+            continue    #skip this iteration if any of the cases that result in none text occur
+
+        respone = get_response(user_text)
+        speak(engine, respone)
+
+        if any(keyword in user_text for keyword in EXIT_KEYWORDS):
+            print("[INFO] Exit keyword detected. Shutting down.")
+            break
+    
+    print("=== Assistant stopped ===")
+
+
+if __name__ == "__main__":
+    main()
