@@ -23,7 +23,7 @@ def listen(recognizer: sr.Recognizer) -> str | None:
         # this block is inside here because listen() needs an audio source open
         try:
             # AudioData instance, not actual text
-            audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
+            audio = recognizer.listen(source, timeout=5, phrase_time_limit=6)
         except sr.WaitTimeoutError:
             print("[INFO] No Audio Detected(timed out)")
             return None
